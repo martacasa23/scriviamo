@@ -9,7 +9,6 @@ class  Card extends Component {
              <div className="card-body">
                 <h5 className="card-title">{this.props.card.titolo}</h5>
                 <p className="card-text"> {this.props.card.autore}.</p>
-                <a href="#" class="btn btn-primary">Leggi</a>
                 </div>
                   </div>
                   </div>
