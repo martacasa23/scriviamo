@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-import drago from './images/drago.png.png';
 import logo from './images/logo.png.png';
 import book from './images/book.png';
 
