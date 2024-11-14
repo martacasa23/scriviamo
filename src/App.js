@@ -27,7 +27,6 @@ class App extends Component{
    { this.state.cards.map(card=>(
     <Card
     key={card.id}
-    onNavigate={this.handleNavigate}
     card={card}/>
    ))}
    </div>
