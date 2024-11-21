@@ -1,13 +1,3 @@
-import Navbar from "./components/navbar";
-import React, { Component } from 'react';
-import Card from "./components/card";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './components/Login'; // Importa il componente Login
-import Register from './components/Register'; // Importa il componente Register
- 
-import logo from './images/logo.png.png';
-import book from './images/book.png';
-
 class App extends Component {
   state = {
     cards: [
@@ -21,6 +11,20 @@ class App extends Component {
   // Funzione per gestire l'autenticazione dopo il login
   handleLogin = (loginSuccess) => {
     if (loginSuccess) {
+      this.setState({ isLoggedIn: true });
+      localStorage.setItem("isLoggedIn", "true");  // Salva nello storage locale
+    }
+  }
+
+  // Funzione per gestire il logout
+  handleLogout = () => {
+    this.setState({ isLoggedIn: false });
+    localStorage.removeItem("isLoggedIn");  // Rimuovi dallo storage locale
+  }
+
+  componentDidMount() {
+    // Verifica se l'utente è già loggato al caricamento
+    if (localStorage.getItem("isLoggedIn")) {
       this.setState({ isLoggedIn: true });
     }
   }
@@ -64,6 +68,7 @@ class App extends Component {
                   <Card key={card.id} card={card} />
                 ))}
               </div>
+              <button onClick={this.handleLogout}>Logout</button> {/* Aggiungi un bottone di logout */}
             </>
           )}
         </div>
