@@ -1,3 +1,12 @@
+import React, { Component } from 'react';
+import Navbar from './components/navbar.js';
+import Login from './components/Login.js';
+import Register from './components/Register.js';
+import Card from './components/card.js';
+import book from './images/book.png';  // Percorso relativo per le immagini
+import logo from './images/logo.png.png';  // Percorso relativo per le immagini
+import axios from 'axios'
+
 class App extends Component {
   state = {
     cards: [
@@ -34,6 +43,11 @@ class App extends Component {
     this.setState({ showRegister: true });
   }
 
+  // Funzione per nascondere il form di registrazione
+  handleCloseRegister = () => {
+    this.setState({ showRegister: false });
+  }
+
   render() {
     return (
       <>
@@ -55,7 +69,7 @@ class App extends Component {
           {this.state.showRegister && (
             <>
               <h2>Registrazione</h2>
-              <Register />
+              <Register onClose={this.handleCloseRegister} /> {/* Aggiungi un metodo per chiudere il form */}
             </>
           )}
 
