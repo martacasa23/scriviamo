@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar.js';
 import Home from './components/Home';
-import StartNow from './components/StartNow';
+import StartNow from './components/StartNow.js';
 import LearnMore from './components/LearnMore';
 import PublishedStories from './components/PublishedStories';
 import StoryDetail from './components/StoryDetail';  // Importa il componente per i dettagli della storia
