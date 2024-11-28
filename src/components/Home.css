@@ -1,0 +1,53 @@
+body {
+    font-family: 'Merriweather', serif;
+    color: #2d2d2d;
+    margin: 0;
+  }
+  
+  .home-container {
+   
+    background-image: url('../images/backgroundimage.jpg'); /* Cambia questo con il percorso corretto */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Rende l'immagine di sfondo fissa durante lo scroll */
+    padding: 2rem;
+    height: auto; /* Altezza della finestra */
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    background-color:  rgba(208, 207, 207, 0.6); /* Sovrapposizione traslucida per migliorare la leggibilità */
+    padding: 2rem; /* Aumenta il padding per far diventare il contenitore più grande */
+    border-radius: 15px;
+    box-shadow: 0 7px 70px rgba(0, 0, 0, 0.5); /* Ombra per il contenitore */
+    width: auto;
+    height: auto; /* Alza l'altezza per rendere il contenitore più grande */
+  }
+  
+  h1, p {
+    font-family: 'Merriweather', serif; /* Mantieni il font letterario */
+  }
+  
+  button {
+    transition: all 0.3s ease;
+    padding: 1rem 2rem; /* Aggiungi più spazio al pulsante */
+  }
+  
+  button:hover {
+    background-color: #ff9800;
+    color: #fff;
+  }
+  
+  /* Anima la comparsa del testo */
+  .animate__fadeIn {
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  

@@ -1,19 +1,28 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Navbar from './components/Navbar';
-
+import Home from './components/Home';
+import StartNow from './components/StartNow';
+import LearnMore from './components/LearnMore';
+import PublishedStories from './components/PublishedStories';
+import StoryDetail from './components/StoryDetail';  // Importa il componente per i dettagli della storia
 
 function App() {
   return (
-    <div>
+    <Router>
       <Navbar />
       <div className="container mt-4">
-        {/* Aggiungi qui il contenuto principale della tua applicazione */}
-        <h1>Benvenuto su Scriviamo!</h1>
-        <p>Inizia a leggere o pubblicare storie.</p>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/start-now" element={<StartNow />} />
+          <Route path="/learn-more" element={<LearnMore />} />
+          <Route path="/published-stories" element={<PublishedStories />} />
+          <Route path="/story/:id" element={<StoryDetail />} />  {/* Aggiungi la route per il dettaglio della storia */}
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
