@@ -6,9 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="http://localhost:3000/">Scriviamo</a>
+        <a className="navbar-brand" href="/">Scriviamo</a>
         <button
           className="navbar-toggler"
           type="button"
