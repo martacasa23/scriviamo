@@ -19,7 +19,7 @@ function App() {
           <Route path="/start-now" element={<StartNow />} />
           <Route path="/learn-more" element={<LearnMore />} />
           <Route path="/published-stories" element={<PublishedStories />} />
-          <Route path="/story/:id" element={<StoryDetail />} />  {/* Aggiungi la route per il dettaglio della storia */}
+          <Route path="/story/:id" element={<StoryDetail />} />  
         </Routes>
       </div>
     </Router>
