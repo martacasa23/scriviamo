@@ -43,7 +43,7 @@ function StartNow() {
 
     // Invio della richiesta POST al backend
     try {
-      const response = await fetch('http://145.223.80.233/api/stories/', {
+      const response = await fetch('https://145.223.80.233/api/stories/', {
         method: 'POST',
         body: formPayload,
       });
