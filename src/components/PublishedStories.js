@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';  // Importa Link per la navigazione tra
 function PublishedStories() {
   const [stories, setStories] = useState([]);
 
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://145.223.80.233';
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'https://145.223.80.233';
 
   useEffect(() => {
     const fetchStories = async () => {
