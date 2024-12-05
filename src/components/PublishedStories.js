@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';  // Importa Link per la navigazione tra
 function PublishedStories() {
   const [stories, setStories] = useState([]);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://145.223.80.233';
+
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        const response = await fetch('http://145.223.80.233/api/stories/published/');
+        const response = await fetch(`${backendUrl}/api/stories/published/`);
         if (response.ok) {
           const data = await response.json();
           setStories(data);
