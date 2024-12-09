@@ -39,27 +39,10 @@ function StartNow() {
     formPayload.append('title', formData.title);
     formPayload.append('content', formData.content);
 
-    let fileUrl = '';
-
-    // Se c'è un file, carica il file su EmailJS prima di inviare l'email
+    // Aggiungi il file al form payload
     if (file) {
-      try {
-        // Carica il file su EmailJS
-        const uploadResult = await emailjs.uploadFile(
-          'service_4d42mvs',   // ID del servizio EmailJS
-          file,                 // Il file caricato
-          'WeY24eWJBOcmUfy4y'   // Il tuo ID utente EmailJS
-        );
-        fileUrl = uploadResult.file.url;  // Ottieni l'URL del file caricato
-      } catch (error) {
-        console.error('Errore nel caricamento del file:', error);
-        alert('Si è verificato un errore nel tentativo di caricare il file.');
-        return;
-      }
+      formPayload.append('file', file);
     }
-
-    // Aggiungi l'URL del file caricato, se esiste
-    formPayload.append('file_url', fileUrl);
 
     try {
       const result = await emailjs.sendForm(
