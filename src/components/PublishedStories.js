@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import emailjs from 'emailjs-com';  // Importa emailjs
 
 function PublishedStories() {
-  const [stories, setStories] = useState([
-    // Esempio di storie per il test, puoi sostituirle con i dati che ricevi tramite form
+  // Esempio di storie statiche
+  const stories = [
     {
       id: 1,
       title: 'La Storia del Vento',
@@ -16,7 +16,7 @@ function PublishedStories() {
       name: 'Anna Bianchi',
       content: 'Un racconto che parla di un viaggio incredibile attraverso terre lontane...'
     }
-  ]);
+  ];
 
   // Funzione per inviare la storia via email
   const handleSendStory = async (story) => {
@@ -24,13 +24,11 @@ function PublishedStories() {
       // Invio dell'email con i dettagli della storia
       const result = await emailjs.send(
         'service_4d42mvs', // Servizio email configurato su EmailJS
-        
         {
           name: story.name,
           title: story.title,
           content: story.content,
         },
-        'YOUR_USER_ID' // Il tuo ID utente EmailJS
       );
 
       console.log(result.text);
