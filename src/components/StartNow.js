@@ -26,6 +26,7 @@ function StartNow() {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
+    console.log("File selezionato:", selectedFile);
   };
 
   // Gestione invio del form
