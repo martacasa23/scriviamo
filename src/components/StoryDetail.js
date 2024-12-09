@@ -18,7 +18,7 @@ function StoryDetail() {
       } catch (error) {
         console.error('Errore:', error);
       }
-    };
+    }; 
 
     fetchStoryDetail();
   }, [id]);
