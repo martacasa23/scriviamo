@@ -33,13 +33,39 @@ function StartNow() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const form = e.target;  // Passa direttamente il form
+    const formPayload = new FormData();
+    formPayload.append('name', formData.name);
+    formPayload.append('email', formData.email);
+    formPayload.append('title', formData.title);
+    formPayload.append('content', formData.content);
+
+    let fileUrl = '';
+
+    // Se c'è un file, carica il file su EmailJS prima di inviare l'email
+    if (file) {
+      try {
+        // Carica il file su EmailJS
+        const uploadResult = await emailjs.uploadFile(
+          'service_4d42mvs',   // ID del servizio EmailJS
+          file,                 // Il file caricato
+          'WeY24eWJBOcmUfy4y'   // Il tuo ID utente EmailJS
+        );
+        fileUrl = uploadResult.file.url;  // Ottieni l'URL del file caricato
+      } catch (error) {
+        console.error('Errore nel caricamento del file:', error);
+        alert('Si è verificato un errore nel tentativo di caricare il file.');
+        return;
+      }
+    }
+
+    // Aggiungi l'URL del file caricato, se esiste
+    formPayload.append('file_url', fileUrl);
 
     try {
       const result = await emailjs.sendForm(
         'service_4d42mvs',     // Servizio email configurato su EmailJS
         'template_xwrce7n',     // Modello di email configurato su EmailJS
-        form,                   // Passa direttamente il modulo
+        e.target,               // Passa l'elemento form al terzo parametro
         'WeY24eWJBOcmUfy4y'     // ID utente EmailJS
       );
 
@@ -99,7 +125,6 @@ function StartNow() {
         <div>
           <input
             type="file"
-            name="file"  // Aggiungi il nome del campo per il file
             onChange={handleFileChange}
           />
         </div>
