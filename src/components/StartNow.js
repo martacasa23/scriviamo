@@ -33,28 +33,44 @@ function StartNow() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Crea un oggetto FormData per inviare i dati in modo corretto
     const formPayload = new FormData();
     formPayload.append('name', formData.name);
     formPayload.append('email', formData.email);
     formPayload.append('title', formData.title);
     formPayload.append('content', formData.content);
+
+    let fileUrl = '';
+
+    // Se c'è un file, carica il file su EmailJS prima di inviare l'email
     if (file) {
-      formPayload.append('file', file);
+      try {
+        // Carica il file su EmailJS
+        const uploadResult = await emailjs.uploadFile(
+          'service_4d42mvs',   // ID del servizio EmailJS
+          file,                 // Il file caricato
+          'WeY24eWJBOcmUfy4y'   // Il tuo ID utente EmailJS
+        );
+        fileUrl = uploadResult.file.url;  // Ottieni l'URL del file caricato
+      } catch (error) {
+        console.error('Errore nel caricamento del file:', error);
+        alert('Si è verificato un errore nel tentativo di caricare il file.');
+        return;
+      }
     }
 
-    // Invio della richiesta email via emailjs
+    // Aggiungi l'URL del file caricato, se esiste
+    formPayload.append('file_url', fileUrl);
+
     try {
       const result = await emailjs.sendForm(
-        'service_4d42mvs',  // Servizio email configurato su EmailJS
-        'template_xwrce7n',  // Modello di email configurato su EmailJS
-        e.target,            // Passa l'elemento form al terzo parametro
-        'WeY24eWJBOcmUfy4y'       // Il tuo ID utente EmailJS
+        'service_4d42mvs',     // Servizio email configurato su EmailJS
+        'template_xwrce7n',     // Modello di email configurato su EmailJS
+        e.target,               // Passa l'elemento form al terzo parametro
+        'WeY24eWJBOcmUfy4y'     // ID utente EmailJS
       );
 
       console.log(result.text);
       alert('La tua storia è stata inviata per la revisione!');
-
     } catch (error) {
       console.error('Errore nell\'invio dell\'email:', error);
       alert('Si è verificato un errore nel tentativo di inviare la storia.');
