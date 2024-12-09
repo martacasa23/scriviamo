@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import emailjs from 'emailjs-com'; // Importa EmailJS
 
 function StartNow() {
   // Stato per i dati del form
@@ -32,37 +31,37 @@ function StartNow() {
   // Gestione invio del form
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
 
-    const formPayload = new FormData();
-    formPayload.append('name', formData.name);
-    formPayload.append('email', formData.email);
-    formPayload.append('title', formData.title);
-    formPayload.append('content', formData.content);
-
-    // Aggiungi il file se presente
+    // Usa fetch per inviare i dati del modulo a Formspree
+    const formDataToSend = new FormData(form);
     if (file) {
-      formPayload.append('file', file);
+      formDataToSend.append('file', file);
     }
 
     try {
-      // Usa emailjs.send con il payload serializzato
-      await emailjs.send(
-        'service_4d42mvs', // ID del tuo servizio EmailJS
-        'template_xwrce7n', // ID del template EmailJS
-        {
-          name: formData.name,
-          email: formData.email,
-          title: formData.title,
-          content: formData.content,
-          file: file ? file.name : '', // Nome del file (se presente)
-        },
-        'WeY24eWJBOcmUfy4y' // Chiave pubblica EmailJS
-      );
+      // Invia i dati a Formspree
+      const response = await fetch('https://formspree.io/f/mvgonaep', {
+        method: 'POST',
+        body: formDataToSend,
+      });
 
-      alert('La tua storia è stata inviata con successo!');
+      if (response.ok) {
+        alert('La tua storia è stata inviata con successo!');
+        // Pulisce il form dopo l'invio
+        setFormData({
+          name: '',
+          email: '',
+          title: '',
+          content: '',
+        });
+        setFile(null);
+      } else {
+        alert('Si è verificato un errore durante l\'invio.');
+      }
     } catch (error) {
       console.error('Errore durante l\'invio:', error);
-      alert('Si è verificato un errore durante l\'invio della storia.');
+      alert('Si è verificato un errore durante l\'invio.');
     }
   };
 
@@ -70,7 +69,7 @@ function StartNow() {
     <div className="container-fluid text-center mt-5">
       <h1>Inviaci la tua storia!</h1>
       <p>Pubblica le tue storie e condividi la tua creatività con la community.</p>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form onSubmit={handleSubmit} method="POST" encType="multipart/form-data">
         <div>
           <input
             type="text"
