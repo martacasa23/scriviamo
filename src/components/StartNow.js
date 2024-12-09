@@ -81,7 +81,7 @@ function StartNow() {
     <div className="container-fluid text-center mt-5">
       <h1>Inviaci la tua storia!</h1>
       <p>Pubblica le tue storie e condividi la tua creatività con la community.</p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} enctype="multipart/form-data">
         <div>
           <input
             type="text"
