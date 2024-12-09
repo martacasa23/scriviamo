@@ -12,6 +12,10 @@ function StartNow() {
   // Stato per il file selezionato
   const [file, setFile] = useState(null);
 
+  // Stato per la gestione degli errori
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+
   // Gestione modifiche nei campi di input
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,16 +29,16 @@ function StartNow() {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
-    console.log("File selezionato:", selectedFile);
   };
 
   // Gestione invio del form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target;
 
-    // Usa fetch per inviare i dati del modulo a Formspree
+    // Crea un oggetto FormData per inviare i dati del modulo
+    const form = e.target;
     const formDataToSend = new FormData(form);
+
     if (file) {
       formDataToSend.append('file', file);
     }
@@ -47,6 +51,7 @@ function StartNow() {
       });
 
       if (response.ok) {
+        setSuccess(true);
         alert('La tua storia è stata inviata con successo!');
         // Pulisce il form dopo l'invio
         setFormData({
@@ -57,11 +62,10 @@ function StartNow() {
         });
         setFile(null);
       } else {
-        alert('Si è verificato un errore durante l\'invio.');
+        setError('Si è verificato un errore durante l\'invio.');
       }
     } catch (error) {
-      console.error('Errore durante l\'invio:', error);
-      alert('Si è verificato un errore durante l\'invio.');
+      setError('Si è verificato un errore durante l\'invio.');
     }
   };
 
@@ -69,6 +73,13 @@ function StartNow() {
     <div className="container-fluid text-center mt-5">
       <h1>Inviaci la tua storia!</h1>
       <p>Pubblica le tue storie e condividi la tua creatività con la community.</p>
+
+      {/* Se c'è un errore, lo mostriamo */}
+      {error && <div className="alert alert-danger">{error}</div>}
+
+      {/* Se la submission ha avuto successo, mostriamo un messaggio di successo */}
+      {success && <div className="alert alert-success">La tua storia è stata inviata con successo!</div>}
+
       <form onSubmit={handleSubmit} method="POST" encType="multipart/form-data">
         <div>
           <input
