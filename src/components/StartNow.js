@@ -46,7 +46,7 @@ function StartNow() {
     try {
       const result = await emailjs.sendForm(
         'service_4d42mvs',  // Servizio email configurato su EmailJS
-        'template_03yhafh',  // Modello di email configurato su EmailJS
+        'template_xwrce7n',  // Modello di email configurato su EmailJS
         e.target,            // Passa l'elemento form al terzo parametro
         'WeY24eWJBOcmUfy4y'       // Il tuo ID utente EmailJS
       );
