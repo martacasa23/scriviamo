@@ -65,8 +65,9 @@ function StartNow() {
       }
     } catch (error) {
       console.error('Errore nella richiesta:', error);
-      alert('Si è verificato un errore nel tentativo di inviare la storia.');
+      alert(`Si è verificato un errore nel tentativo di inviare la storia. Dettagli: ${error.message}`);
     }
+    
   };
 
   return (
