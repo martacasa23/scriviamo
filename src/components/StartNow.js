@@ -33,14 +33,13 @@ function StartNow() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const form = e.target;
-    const formPayload = new FormData(form); // Usa FormData per inviare tutti i campi, incluso il file
+    const form = e.target;  // Passa direttamente il form
 
     try {
       const result = await emailjs.sendForm(
         'service_4d42mvs',     // Servizio email configurato su EmailJS
         'template_xwrce7n',     // Modello di email configurato su EmailJS
-        form,                   // Il modulo da inviare
+        form,                   // Passa direttamente il modulo
         'WeY24eWJBOcmUfy4y'     // ID utente EmailJS
       );
 
