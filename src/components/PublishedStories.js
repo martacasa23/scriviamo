@@ -24,11 +24,13 @@ function PublishedStories() {
       // Invio dell'email con i dettagli della storia
       const result = await emailjs.send(
         'service_4d42mvs', // Servizio email configurato su EmailJS
+        'template_03yhafh', // Modello di email configurato su EmailJS
         {
           name: story.name,
           title: story.title,
           content: story.content,
         },
+        'WeY24eWJBOcmUfy4y' // Il tuo ID utente EmailJS
       );
 
       console.log(result.text);
