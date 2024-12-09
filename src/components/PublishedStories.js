@@ -1,28 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';  // Importa Link per la navigazione tra le pagine
+import React, { useState } from 'react';
+import emailjs from 'emailjs-com';  // Importa emailjs
 
 function PublishedStories() {
-  const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState([
+    // Esempio di storie per il test, puoi sostituirle con i dati che ricevi tramite form
+    {
+      id: 1,
+      title: 'La Storia del Vento',
+      name: 'Giovanni Rossi',
+      content: 'Questa è una breve descrizione della trama della storia...'
+    },
+    {
+      id: 2,
+      title: 'Il Viaggio Magico',
+      name: 'Anna Bianchi',
+      content: 'Un racconto che parla di un viaggio incredibile attraverso terre lontane...'
+    }
+  ]);
 
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'https://145.223.80.233';
+  // Funzione per inviare la storia via email
+  const handleSendStory = async (story) => {
+    try {
+      // Invio dell'email con i dettagli della storia
+      const result = await emailjs.send(
+        'service_4d42mvs', // Servizio email configurato su EmailJS
+        
+        {
+          name: story.name,
+          title: story.title,
+          content: story.content,
+        },
+        'YOUR_USER_ID' // Il tuo ID utente EmailJS
+      );
 
-  useEffect(() => {
-    const fetchStories = async () => {
-      try {
-        const response = await fetch(`${backendUrl}/api/stories/published/`);
-        if (response.ok) {
-          const data = await response.json();
-          setStories(data);
-        } else {
-          console.error('Errore nel recupero delle storie.');
-        }
-      } catch (error) {
-        console.error('Errore:', error);
-      }
-    };
+      console.log(result.text);
+      alert('La tua storia è stata inviata per la revisione!');
 
-    fetchStories();
-  }, [backendUrl]); // Aggiungi backendUrl qui per risolvere l'errore
+    } catch (error) {
+      console.error('Errore nell\'invio dell\'email:', error);
+      alert('Si è verificato un errore nel tentativo di inviare la storia.');
+    }
+  };
 
   return (
     <div className="story-container bg-warning-subtle">
@@ -36,9 +54,12 @@ function PublishedStories() {
                   <h5 className="card-title">{story.title}</h5>
                   <p className="card-text">Autore: {story.name}</p>
                   <p className="card-text">{story.content.substring(0, 100)}...</p>
-                  <Link to={`/story/${story.id}`} className="btn btn-outline-dark">
-                    Leggi la storia
-                  </Link>
+                  <button 
+                    className="btn btn-outline-dark" 
+                    onClick={() => handleSendStory(story)}
+                  >
+                    Invia per revisione
+                  </button>
                 </div>
               </div>
             </div>
