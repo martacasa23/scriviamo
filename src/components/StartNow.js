@@ -56,6 +56,7 @@ function StartNow() {
         setError('');
       }
     } catch (err) {
+      localStorage.setItem('user', JSON.stringify(user)); 
       console.error(err);
       setError('Errore durante la registrazione');
     }
