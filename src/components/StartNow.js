@@ -52,11 +52,11 @@ function StartNow() {
       if (error) {
         setError(error.message);
       } else {
+        localStorage.setItem('user', JSON.stringify(user)); 
         setSuccess(true);
         setError('');
       }
     } catch (err) {
-      localStorage.setItem('user', JSON.stringify(user)); 
       console.error(err);
       setError('Errore durante la registrazione');
     }
