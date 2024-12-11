@@ -1,138 +1,98 @@
 import React, { useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
+import { useNavigate } from 'react-router-dom';
+
+// Crea il client di Supabase
+const supabaseUrl = 'https://kbepvpaowkcxmpuasmmm.supabase.co'; // Usa il tuo URL di Supabase
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtiZXB2cGFvd2tjeG1wdWFzbW1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM4NDU1NTUsImV4cCI6MjA0OTQyMTU1NX0.3cLjj6V8ubKF0MBALH1_ECZ1qAbMLf5I-4VFoGvwgQE'; // Usa la tua chiave pubblica
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 function StartNow() {
-  // Stato per i dati del form
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    title: '',
-    content: '',
-  });
-
-  // Stato per il file selezionato
-  const [file, setFile] = useState(null);
-
-  // Stato per la gestione degli errori
-  const [error, setError] = useState(null);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [isLogin, setIsLogin] = useState(true); 
+  const navigate = useNavigate();// Stato per login o registrazione
 
-  // Gestione modifiche nei campi di input
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  // Gestione selezione file
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-  };
-
-  // Gestione invio del form
-  const handleSubmit = async (e) => {
+  // Funzione per gestire il login
+  const handleLogin = async (e) => {
     e.preventDefault();
-
-    // Crea un oggetto FormData per inviare i dati del modulo
-    const form = e.target;
-    const formDataToSend = new FormData(form);
-
-    if (file) {
-      formDataToSend.append('file', file);
-    }
-
     try {
-      // Invia i dati a Formspree
-      const response = await fetch('https://formspree.io/f/mvgonaep', {
-        method: 'POST',
-        body: formDataToSend,
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: username,  // username come email
+        password: password,
       });
 
-      if (response.ok) {
-        setSuccess(true);
-        alert('La tua storia è stata inviata con successo!');
-        // Pulisce il form dopo l'invio
-        setFormData({
-          name: '',
-          email: '',
-          title: '',
-          content: '',
-        });
-        setFile(null);
+      if (error) {
+        setError('Credenziali errate');
       } else {
-        setError('Si è verificato un errore durante l\'invio.');
+        localStorage.setItem('user', JSON.stringify(data.user));  // Salva i dati dell'utente
+        setSuccess(true);
+        setError('');
+        navigate('/submit-story');  // Reindirizza alla pagina di invio storia
       }
-    } catch (error) {
-      setError('Si è verificato un errore durante l\'invio.');
+      
+    } catch (err) {
+      console.error(err); 
+      setError('Errore durante il login');  // Gestione dell'errore
+      setSuccess(false);
+    }
+  };
+
+  // Funzione per gestire la registrazione
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const { user, error } = await supabase.auth.signUp({
+        email: username,  // username come email
+        password: password,
+      });
+
+      if (error) {
+        setError(error.message);
+      } else {
+        setSuccess(true);
+        setError('');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Errore durante la registrazione');
     }
   };
 
   return (
-    <div className="container-fluid text-center mt-5">
-      <h1>Inviaci la tua storia!</h1>
-      <p>Pubblica le tue storie e condividi la tua creatività con la community.</p>
+    <div>
+      <h1>{isLogin ? 'Login' : 'Registrazione'}</h1>
 
-      {/* Se c'è un errore, lo mostriamo */}
-      {error && <div className="alert alert-danger">{error}</div>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {success && <p style={{ color: 'green' }}>{isLogin ? 'Login riuscito!' : 'Registrazione riuscita! Conferma la tua mail'}</p>}
 
-      {/* Se la submission ha avuto successo, mostriamo un messaggio di successo */}
-      {success && <div className="alert alert-success">La tua storia è stata inviata con successo!</div>}
-
-      <form onSubmit={handleSubmit} method="POST" encType="multipart/form-data">
+      <form onSubmit={isLogin ? handleLogin : handleRegister}>
         <div>
           <input
             type="text"
-            placeholder="Nome"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
         <div>
           <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Titolo della storia"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <textarea
-            placeholder="Raccontaci la trama"
-            name="content"
-            value={formData.content}
-            onChange={handleInputChange}
-            rows="4"
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="file"
-            onChange={handleFileChange}
-          />
-        </div>
-        <div>
-          <button type="submit" className="btn btn-outline-dark">
-            Invia la tua storia
-          </button>
-        </div>
+        <button type="submit">{isLogin ? 'Accedi' : 'Registrati'}</button>
       </form>
+      {/* Bottone per passare dalla registrazione al login e viceversa */}
+      <button onClick={() => setIsLogin(!isLogin)}>
+        {isLogin ? 'Non hai un account? Registrati' : 'Hai già un account? Accedi'}
+      </button>
     </div>
   );
 }
