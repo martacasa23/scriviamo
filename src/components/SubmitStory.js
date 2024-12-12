@@ -15,7 +15,7 @@ function SubmitStory() {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://145.223.80.233:5000/upload-story', {
+      const response = await fetch('https://scriviamo.org/upload-story', {
         method: 'POST',
         body: formData,
       });
