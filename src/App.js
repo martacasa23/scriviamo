@@ -7,7 +7,7 @@ import Navbar from './components/navbar';
 import StartNow from './components/StartNow';
 import LearnMore from './components/LearnMore';
 import PublishedStories from './components/PublishedStories';
-import SubmitStory from './components/SubmitStory';  // Importa il componente per i dettagli della storia
+import SubmitStory from './components/SubmitStory';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route path="/learn-more" element={<LearnMore />} />
           <Route path="/published-stories" element={<PublishedStories />} />
           <Route path="/submit-story" element={<SubmitStory />} />      
-          </Routes>
+        </Routes>
       </div>
     </Router>
   );

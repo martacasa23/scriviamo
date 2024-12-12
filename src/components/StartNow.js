@@ -7,13 +7,14 @@ const supabaseUrl = 'https://kbepvpaowkcxmpuasmmm.supabase.co'; // Usa il tuo UR
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtiZXB2cGFvd2tjeG1wdWFzbW1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM4NDU1NTUsImV4cCI6MjA0OTQyMTU1NX0.3cLjj6V8ubKF0MBALH1_ECZ1qAbMLf5I-4VFoGvwgQE'; // Usa la tua chiave pubblica
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+
 function StartNow() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [isLogin, setIsLogin] = useState(true); 
-  const navigate = useNavigate();// Stato per login o registrazione
+  const navigate = useNavigate(); // Stato per login o registrazione
 
   // Funzione per gestire il login
   const handleLogin = async (e) => {
@@ -32,7 +33,6 @@ function StartNow() {
         setError('');
         navigate('/submit-story');  // Reindirizza alla pagina di invio storia
       }
-      
     } catch (err) {
       console.error(err); 
       setError('Errore durante il login');  // Gestione dell'errore
