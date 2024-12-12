@@ -1,48 +1,67 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-function SubmitStory() {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [plot, setPlot] = useState('');
-  const [file, setFile] = useState(null);
+const SubmitStory = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [story, setStory] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('author', author);
-    formData.append('plot', plot);
-    formData.append('file', file);
+
+    if (!name || !email || !story) {
+      alert('Compila tutti i campi');
+      return;
+    }
+
+    setLoading(true);
 
     try {
-      const response = await fetch('https://scriviamo.org/upload-story', {
-        method: 'POST',
-        body: formData,
+      const response = await axios.post('/.netlify/functions/submit-story', {
+        name,
+        email,
+        story,
       });
-      const result = await response.json();
-      if (result.success) {
-        alert('Storia inviata con successo!');
-      } else {
-        alert('Errore nell\'invio della storia.');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Errore nell\'invio della storia.');
+
+      alert(response.data.message); // Messaggio di successo dalla funzione
+    } catch (error) {
+      console.error(error);
+      setError('Si è verificato un errore durante l\'invio della storia.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <h2>Invia la tua storia</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Titolo" value={title} onChange={(e) => setTitle(e.target.value)} required />
-        <input type="text" placeholder="Autore" value={author} onChange={(e) => setAuthor(e.target.value)} required />
-        <textarea placeholder="Trama" value={plot} onChange={(e) => setPlot(e.target.value)} required />
-        <input type="file" onChange={(e) => setFile(e.target.files[0])} required />
-        <button type="submit">Invia Storia</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Nome"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <textarea
+        placeholder="Scrivi la tua storia"
+        value={story}
+        onChange={(e) => setStory(e.target.value)}
+        required
+      />
+      <button type="submit" disabled={loading}>
+        {loading ? 'Caricamento...' : 'Invia'}
+      </button>
+      {error && <p>{error}</p>}
+    </form>
   );
-}
+};
 
 export default SubmitStory;
