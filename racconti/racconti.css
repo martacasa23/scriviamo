@@ -1,0 +1,161 @@
+/* Corpo della pagina */
+body {
+    font-family: 'Cinzel', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  /* Navbar */
+.navbar {
+    background-color: #333;
+    backdrop-filter: blur(10px); /* Sfoca il contenuto dietro la navbar */
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Spazio tra il logo e i link */
+  }
+  
+  .navbar .logo a {
+    color: rgb(253, 251, 251);
+    font-size: 24px;
+    text-decoration: none;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin-left: auto; /* Questo spinge i link a destra */
+  }
+  
+  .nav-links li {
+    margin-left: 20px;
+  }
+  
+  .nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  /* Sezione racconto */
+  .racconto {
+    max-width: 800px;
+    margin: 40px auto; /* Centra la sezione */
+    padding: 20px;
+    background-color: #ffffff; /* Sfondo bianco per il racconto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Aggiunge una leggera ombra */
+    border-radius: 10px;
+  }
+  
+  /* Contenuto del racconto */
+  .story-content {
+    line-height: 1.8;
+  }
+  
+  /* Titolo principale */
+  h3 {
+    font-size: 2.5em; /* Grandezza del titolo */
+    color: #333333;
+    margin-bottom: 20px;
+    text-align: center; /* Centra il titolo */
+    font-weight: bold;
+  }
+  
+  /* Paragrafi */
+  p {
+    font-size: 1.1em;
+    color: #555555;
+    margin-bottom: 20px; /* Distanza tra i paragrafi */
+  }
+  
+  /* Prima sezione del testo */
+  p:first-of-type {
+    margin-top: 0; /* Rimuove il margine in alto solo al primo paragrafo */
+  }
+  
+  /* Aggiungi uno spazio extra dopo il primo paragrafo */
+  p:nth-of-type(1) {
+    margin-bottom: 40px;
+  }
+  
+  /* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  
+  @media (max-width: 768px) {
+    /* Generale */
+    body {
+      font-size: 14px;
+      padding: 0 10px; /* Aggiunge un po’ di spazio ai lati */
+    }
+  
+    /* Navbar */
+    .navbar {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 15px;
+    }
+  
+    .navbar .logo a {
+      font-size: 20px; /* Riduce la dimensione del logo */
+    }
+  
+    .nav-links {
+      flex-direction: column;
+      width: 100%;
+      padding: 0;
+    }
+  
+    .nav-links li {
+      margin: 5px 0;
+    }
+  
+    .nav-links li a {
+      font-size: 14px; /* Link più piccoli */
+    }
+  
+    /* Sezione racconto */
+    .racconto {
+      max-width: 100%;
+      margin: 20px auto;
+      padding: 15px;
+      box-shadow: none; /* Rimuove l'ombra per un look più piatto */
+    }
+  
+    h3 {
+      font-size: 2em; /* Riduce la grandezza del titolo */
+    }
+  
+    p {
+      font-size: 1em;
+    }
+  
+    /* Footer */
+    footer {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  
+  /* Per telefoni ancora più piccoli (es. iPhone SE) */
+  @media (max-width: 480px) {
+    h3 {
+      font-size: 1.8em;
+    }
+  
+    p {
+      font-size: 0.95em;
+    }
+  
+    .racconto {
+      padding: 10px;
+    }
+  }
+  

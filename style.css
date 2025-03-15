@@ -1,0 +1,279 @@
+/* Stile di base per il corpo della pagina */
+body {
+  font-family: 'Cinzel', serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* Navbar */
+.navbar {
+  background-color: #333;
+  backdrop-filter: blur(10px); /* Sfoca il contenuto dietro la navbar */
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Spazio tra il logo e i link */
+}
+
+.navbar .logo a {
+  color: rgb(253, 251, 251);
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin-left: auto; /* Questo spinge i link a destra */
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* Hero Section */
+.home {
+  position: relative;
+  background-image: url('images/home.jpeg');
+  background-repeat: repeat-x; /* Ripete l'immagine orizzontalmente */
+  background-size: contain; /* Adatta l'immagine mantenendo le proporzioni */
+  background-position: top center; /* Posiziona l'immagine in cima e al centro */
+  height: 100vh; /* Altezza della sezione */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.home-content {
+  position: relative;
+  z-index: 1; /* Assicura che il testo sia sopra l'immagine */
+}
+
+.home h1 {
+  font-size: 48px;
+  margin: 0;
+  padding: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Ombra per il testo */
+}
+
+.home p {
+  font-size: 20px;
+  margin: 20px 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Ombra per il testo */
+}
+
+
+/*Sezione Racconti */
+.racconti h1 {
+  text-align: center; /* Centra il testo */
+  font-size: 4rem; /* Aumenta la dimensione del font */
+  color: #1d4d08; /* Puoi cambiare il colore come preferisci */
+  margin: 50px 0; /* Distanza tra il titolo e il resto della sezione */
+}
+
+.post {
+  font-size: 1.5rem;
+  display: flex; /* Dispone gli elementi in riga */
+  align-items: center; /* Allinea verticalmente */
+  gap: 15px; /* Distanza tra immagine e testo */
+}
+.post img {
+    width: 200px;  /* Rende l'immagine più piccola */
+    height: auto;  /* Mantiene le proporzioni */
+    border-radius: 10px; /* Angoli leggermente arrotondati */
+}
+
+/* Rimuove la sottolineatura dal link */
+a {
+  text-decoration: none;
+}
+
+/* (Opzionale) Aggiungi uno stile per l'hover, se desideri cambiare colore al passaggio del mouse */
+a:hover {
+  color: #f1c40f;  /* Colore giallo dorato quando il mouse è sopra */
+}
+
+/*Chi sono */
+
+#chi-sono {
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center; /* Centra orizzontalmente */
+  align-items: center; /* Centra verticalmente */
+  text-align: center; /* Allinea il testo al centro */
+  height: 100vh;
+}
+
+.chi-sono {
+  max-width: 900px; /* Limita la larghezza per una migliore leggibilità */
+  padding: 10px;
+}
+
+/*Contatti*/
+#contatti {
+  background: #000000ec; /* Sfondo scuro */
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+  height: 100vh;
+}
+
+.contatti-container {
+  max-width: 600px;
+  margin: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  background: #ffcc00;
+  color: black;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ffaa00;
+}
+
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+@media (max-width: 480px) {
+  /* Generale */
+  body {
+    font-size: 14px;
+  }
+
+  /* Navbar */
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .navbar .logo a {
+    font-size: 20px; /* Logo più piccolo */
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+  }
+
+  .nav-links li {
+    margin: 10px 0;
+  }
+
+  .nav-links li a {
+    font-size: 14px; /* Link più piccoli */
+  }
+
+  /* Hero Section */
+  .home {
+    height: auto;
+    padding: 30px 10px;
+  }
+
+  .home h1 {
+    font-size: 30px; /* Titolo più piccolo */
+    padding: 10px;
+  }
+
+  .home p {
+    font-size: 16px;
+  }
+
+  /* Sezione Racconti */
+  .racconti h1 {
+    font-size: 2.5rem;
+    margin: 30px 0;
+  }
+
+  .post {
+    flex-direction: column; /* I racconti vanno in colonna */
+    text-align: center;
+    gap: 10px;
+  }
+
+  .post img {
+    width: 100%; /* Immagine grande il 100% dello schermo */
+    max-width: 300px; /* Ma non più grande di 300px */
+  }
+
+  .post p {
+    font-size: 14px;
+  }
+
+  /* Sezione Chi Sono */
+  #chi-sono {
+    height: auto;
+    padding: 30px 10px;
+  }
+
+  .chi-sono {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  /* Sezione Contatti */
+  #contatti {
+    height: auto;
+    padding: 30px 10px;
+  }
+
+  .contatti-container {
+    width: 100%;
+  }
+
+  form {
+    gap: 10px;
+  }
+
+  input, textarea {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 16px;
+  }
+
+  /* Footer */
+  footer {
+    font-size: 14px;
+    padding: 5px 0;
+  }
+}
