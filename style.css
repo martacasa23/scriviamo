@@ -217,27 +217,30 @@ footer {
     font-size: 16px;
   }
 
-  /* Sezione Racconti */
-  .racconti h1 {
-    font-size: 2.5rem;
-    margin: 30px 0;
-  }
+  /*racconti sectoion*/
+  .racconti {
+    display: flex;
+    flex-direction: column; /* Disporre i post in verticale */
+    gap: 30px; /* Aggiungere spazio tra i post nella stessa sezione */
+    align-items: center; /* Centrare i post */
+}
 
-  .post {
-    flex-direction: column; /* I racconti vanno in colonna */
+.post {
     text-align: center;
-    gap: 10px;
-  }
+    margin-bottom: 30px; /* Distanza tra i post all'interno della stessa sezione */
+}
 
-  .post img {
-    width: 100%; /* Immagine grande il 100% dello schermo */
-    max-width: 300px; /* Ma non più grande di 300px */
-  }
+.post img {
+    display: block; /* Trattare l'immagine come blocco */
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 80x; /* Distanza sotto l'immagine */
+}
 
   .post p {
     font-size: 14px;
   }
-
+  
   /* Sezione Chi Sono */
   #chi-sono {
     height: auto;
